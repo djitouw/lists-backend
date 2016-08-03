@@ -1,0 +1,82 @@
+[
+	{
+		"local_id": "1",
+		"omdb_id": "",
+	    "title": "Goodbye Pork Pie",
+	    "directors": [
+	        "Geoff Murphy"
+	    ],
+	    "release_date": "1981-02-06",
+	    "length": 105
+	},
+	{
+		"local_id": "2",
+		"omdb_id": "",
+	    "title": "Once were warriors",
+	    "directors": [
+	        "Lee Tamahori"
+	    ],
+	    "release_date": "1994-09-02",
+	    "length": 102
+	},
+	{
+		"local_id": "3",
+		"omdb_id": "",
+	    "title": "Heavenly Creatures",
+	    "directors": [
+	        "Peter Jackson"
+	    ],
+	    "release_date": "1994-10-14",
+	    "length": 109
+	},
+	{
+		"local_id": "4",
+		"omdb_id": "",
+	    "title": "Whale Rider",
+	    "directors": [
+	        "Niki Caro"
+	    ],
+	    "release_date": "2002-09-09",
+	    "length": 101
+	},
+	{
+		"local_id": "5",
+		"omdb_id": "",
+	    "title": "Brain Dead",
+	    "directors": [
+	        "Peter Jackson"
+	    ],
+	    "release_date": "1992-08-13",
+	    "length": 104
+	},
+	{
+		"local_id": "6",
+		"omdb_id": "",
+	    "title": "Boy",
+	    "directors": [
+	        "Taika Waititi"
+	    ],
+	    "release_date": "2010-03-25",
+	    "length": 88
+	},
+	{
+		"local_id": "7",
+		"omdb_id": "",
+	    "title": "In My Father's Den'",
+	    "directors": [
+	        "Brad McGann"
+	    ],
+	    "release_date": "2004-10-07",
+	    "length": 128
+	},
+	{
+		"local_id": "8",
+		"omdb_id": "",
+	    "title": "Utu",
+	    "directors": [
+	        "Geoff Murphy"
+	    ],
+	    "release_date": "1984-06-27",
+	    "length": 104
+	}
+]

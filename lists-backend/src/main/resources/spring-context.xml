@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/data/mongo
+	http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- <context:component-scan base-package="com.djitouw.lists.backend" /> -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:url.properties</value>
+		</property>
+	</bean>
+
+	<bean id="usmovies" class="com.djitouw.lists.backend.us.impl.USMoviesImpl">
+		<property name="msMovies" ref="msmovies" />
+	</bean>
+	<bean id="msmovies" class="com.djitouw.lists.backend.ms.impl.MSMoviesImpl">
+		<property name="databaseProvider" ref="databaseprovider" />
+		<property name="omdbProvider" ref="omdbprovider" />
+		<property name="movieFactory" ref="moviefactory" />
+	</bean>
+	<bean id="databaseprovider"
+		class="com.djitouw.lists.backend.provider.database.impl.MongoDBProviderImpl" />
+	<bean id="omdbprovider"
+		class="com.djitouw.lists.backend.provider.omdb.impl.OMDbProviderImpl">
+		<property name="url" value="${providers.omdb.url}" />
+	</bean>
+	<bean id="moviefactory"
+		class="com.djitouw.lists.backend.factories.impl.MovieFactoryImpl" />
+
+	<!-- MongoDB -->
+	<mongo:mongo host="127.0.0.1" port="27017" />
+	<mongo:db-factory dbname="djitouw" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+
+</beans>
