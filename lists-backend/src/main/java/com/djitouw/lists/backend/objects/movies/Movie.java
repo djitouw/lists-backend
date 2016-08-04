@@ -9,23 +9,24 @@ import javax.xml.bind.annotation.XmlType;
 import com.djitouw.lists.backend.objects.ListElement;
 import com.djitouw.lists.backend.objects.Person;
 
-@XmlType(name="")
-public class Movie extends ListElement{
+@XmlType(name = "")
+public class Movie extends ListElement {
 
-	@XmlElement(name="title")
+	@XmlElement(name = "local_id")
+	private String localId;
+
+	@XmlElement(name = "title")
 	private String title;
 
-	@XmlElement(name="release_date")
+	@XmlElement(name = "release_date")
 	private Date releaseDate;
-	
-	@XmlElement(name="directors")
+
+	@XmlElement(name = "directors")
 	private List<Person> directors;
-	
-	@XmlElement(name="length")
+
+	@XmlElement(name = "length")
 	private Double length;
 
-	private boolean champCache;
-	
 	public String getTitle() {
 		return title;
 	}
@@ -58,14 +59,12 @@ public class Movie extends ListElement{
 		this.length = length;
 	}
 
-	public boolean isChampCache() {
-		return champCache;
+	public String getLocalId() {
+		return localId;
 	}
 
-	public void setChampCache(boolean champCache) {
-		this.champCache = champCache;
+	public void setLocalId(String localId) {
+		this.localId = localId;
 	}
-	
-	
-	
+
 }

@@ -29,7 +29,7 @@ public class OMDbProviderImpl implements OMDbProvider {
 		}
 		
 		Client client = ClientBuilder.newClient();
-		WebTarget webResource = client.target(url).queryParam("tomatoes", true).queryParam("plot", "long");
+		WebTarget webResource = client.target(url).queryParam("tomatoes", true).queryParam("plot", "full");
 		// if we have the id we use it, otherwise we use the title
 		if(StringUtils.isNotBlank(id)){
 			webResource = webResource.queryParam("i", id);

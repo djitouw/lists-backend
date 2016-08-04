@@ -28,6 +28,7 @@ public class MovieFactoryImpl implements MovieFactory {
 		Movie movie = null;
 		if (movieDB != null) {
 			movie = new Movie();
+			movie.setLocalId(movieDB.getLocalId());
 			movie.setTitle(movieDB.getTitle());
 			String releaseDate = movieDB.getReleaseDate();
 			if (StringUtils.isNotBlank(releaseDate)) {

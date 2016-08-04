@@ -23,59 +23,71 @@ import com.djitouw.lists.backend.ut.AbstractUT;
  *
  */
 public class MovieFactoryImplUT extends AbstractUT {
-	
+
 	private MovieFactoryImpl movieFactory = new MovieFactoryImpl();
-	
+
 	/**
 	 * Null case.
 	 */
 	@Test
-	public void testBuildMovieNull(){
+	public void testBuildMovieNull() {
 		Movie movie = movieFactory.buildMovieDB(null);
 		Assert.assertNull(movie);
 	}
-	
+
+	/**
+	 * Local id OK case.
+	 */
+	@Test
+	public void testBuildMovieLocalIdOK() {
+		MovieDB movieDB = new MovieDB();
+		movieDB.setLocalId("localId");
+		Movie movie = movieFactory.buildMovieDB(movieDB);
+		Assert.assertNotNull(movie);
+		Assert.assertEquals(movieDB.getLocalId(), movie.getLocalId());
+	}
+
 	/**
 	 * Title OK case.
 	 */
 	@Test
-	public void testBuildMovieTitleOK(){
+	public void testBuildMovieTitleOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setTitle("title");
 		Movie movie = movieFactory.buildMovieDB(movieDB);
 		Assert.assertNotNull(movie);
 		Assert.assertEquals(movieDB.getTitle(), movie.getTitle());
 	}
-	
+
 	/**
 	 * Length OK case.
 	 */
 	@Test
-	public void testBuildMovieLengthOK(){
+	public void testBuildMovieLengthOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setLength(12d);
 		Movie movie = movieFactory.buildMovieDB(movieDB);
 		Assert.assertNotNull(movie);
 		Assert.assertEquals(movieDB.getLength(), movie.getLength(), 0);
 	}
-	
+
 	/**
 	 * Length OK case.
 	 */
 	@Test
-	public void testBuildMovieDateIncorrectFormat(){
+	public void testBuildMovieDateIncorrectFormat() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setReleaseDate("date incorrecte");
 		Movie movie = movieFactory.buildMovieDB(movieDB);
 		Assert.assertNotNull(movie);
 		Assert.assertNull(movie.getReleaseDate());
 	}
-	
+
 	/**
 	 * Length OK case.
 	 */
 	@Test
-	public void testBuildMovieDateOK(){
+	public void testBuildMovieDateOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setReleaseDate("1972-10-04");
 		Movie movie = movieFactory.buildMovieDB(movieDB);
@@ -84,12 +96,12 @@ public class MovieFactoryImplUT extends AbstractUT {
 		Assert.assertNotNull(releaseDate);
 		Assert.assertEquals(movieDB.getReleaseDate(), DateFormatUtils.format(releaseDate, "yyyy-MM-dd"));
 	}
-	
+
 	/**
 	 * Length OK case.
 	 */
 	@Test
-	public void testBuildMovieDirectorsOK(){
+	public void testBuildMovieDirectorsOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setDirectors(Arrays.asList("director1", "director2"));
 		Movie movie = movieFactory.buildMovieDB(movieDB);
@@ -99,62 +111,62 @@ public class MovieFactoryImplUT extends AbstractUT {
 		Assert.assertEquals("director1", directors.get(0).getName());
 		Assert.assertEquals("director2", directors.get(1).getName());
 	}
-	
+
 	/**
 	 * Null case.
 	 */
 	@Test
-	public void testBuildMovieDetailsOMDbNull(){
+	public void testBuildMovieDetailsOMDbNull() {
 		MovieDetails movieDetails = movieFactory.buildMovieDetailsOMDb(null);
 		Assert.assertNull(movieDetails);
 	}
-	
+
 	/**
 	 * Case title OK.
 	 */
 	@Test
-	public void testBuildMovieDetailsOMDbTitleOK(){
+	public void testBuildMovieDetailsOMDbTitleOK() {
 		MovieOMDb movieOMDb = new MovieOMDb();
 		movieOMDb.setTitle("title");
 		MovieDetails movieDetails = movieFactory.buildMovieDetailsOMDb(movieOMDb);
 		Assert.assertNotNull(movieDetails);
 		Assert.assertEquals(movieOMDb.getTitle(), movieDetails.getTitle());
 	}
-	
+
 	/**
 	 * Case plot OK.
 	 */
 	@Test
-	public void testBuildMovieDetailsOMDbPlotOK(){
+	public void testBuildMovieDetailsOMDbPlotOK() {
 		MovieOMDb movieOMDb = new MovieOMDb();
 		movieOMDb.setPlot("plot");
 		MovieDetails movieDetails = movieFactory.buildMovieDetailsOMDb(movieOMDb);
 		Assert.assertNotNull(movieDetails);
 		Assert.assertEquals(movieOMDb.getPlot(), movieDetails.getSynopsis());
 	}
-	
+
 	/**
 	 * Case url poster OK.
 	 */
 	@Test
-	public void testBuildMovieDetailsOMDbUrlPosterOK(){
+	public void testBuildMovieDetailsOMDbUrlPosterOK() {
 		MovieOMDb movieOMDb = new MovieOMDb();
 		movieOMDb.setUrlPoster("url_poster");
 		MovieDetails movieDetails = movieFactory.buildMovieDetailsOMDb(movieOMDb);
 		Assert.assertNotNull(movieDetails);
 		Assert.assertEquals(movieOMDb.getUrlPoster(), movieDetails.getUrlPoster());
 	}
-	
+
 	/**
 	 * Case tomato meter OK.
 	 */
 	@Test
-	public void testBuildMovieDetailsOMDbTomatoMeterOK(){
+	public void testBuildMovieDetailsOMDbTomatoMeterOK() {
 		MovieOMDb movieOMDb = new MovieOMDb();
 		movieOMDb.setTomatoMeter(94);
 		MovieDetails movieDetails = movieFactory.buildMovieDetailsOMDb(movieOMDb);
 		Assert.assertNotNull(movieDetails);
 		Assert.assertEquals(movieOMDb.getTomatoMeter(), movieDetails.getTomatoMeter(), 0);
 	}
-	
+
 }

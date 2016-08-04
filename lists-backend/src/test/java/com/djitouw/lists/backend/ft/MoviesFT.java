@@ -20,8 +20,8 @@ import io.restassured.response.ValidatableResponse;
  * @author Djitouw
  *
  */
-public class MoviesFT extends AbstractFT{
-	
+public class MoviesFT extends AbstractFT {
+
 	// FIXME arousseau 03/08/2016: put this in conf
 	private static final String URL_MOVIES_LIST = "http://localhost:8080/lists-backend/movies";
 
@@ -29,22 +29,23 @@ public class MoviesFT extends AbstractFT{
 	 * Test of the path /movies
 	 */
 	@Test
-	public void testMoviesGetList(){
+	public void testMoviesGetList() {
 		ValidatableResponse response = get(URL_MOVIES_LIST).then().log().ifValidationFails();
 		response.statusCode(200);
+		response.body("local_id", everyItem(allOf(notNullValue(), isA(String.class))));
 		response.body("title", everyItem(allOf(notNullValue(), isA(String.class))));
 		response.body("length", everyItem(allOf(notNullValue(), isA(Number.class))));
 		response.body("release_date", everyItem(allOf(notNullValue(), isA(String.class))));
 		response.body("directors", everyItem(hasSize(greaterThanOrEqualTo(1))));
 		response.body("directors.name", everyItem(everyItem(allOf(notNullValue(), isA(String.class)))));
 	}
-	
+
 	/**
 	 * Test of the path /movies/{id}
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testMoviesGetDetails(){
+	public void testMoviesGetDetails() {
 		ValidatableResponse response = get(URL_MOVIES_LIST + "/1").then().log().ifValidationFails();
 		response.statusCode(200);
 		response.body("title", allOf(notNullValue(), isA(String.class)));
