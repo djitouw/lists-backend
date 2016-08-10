@@ -1,10 +1,13 @@
 package com.djitouw.lists.backend.objects.movies;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlType(name = "")
-public class MovieDetails extends Movie {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
+public class MovieDetails {
 
 	@XmlElement(name = "synopsis")
 	private String synopsis;

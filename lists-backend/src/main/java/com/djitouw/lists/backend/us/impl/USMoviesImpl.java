@@ -6,6 +6,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
@@ -33,9 +34,9 @@ public class USMoviesImpl implements USMovies {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Override
-    public List<Movie> getList() {
+    public List<Movie> getList(@QueryParam("username") String username) {
     	LOGGER.info("GET /movies");
-    	return msMovies.getList();
+    	return msMovies.getList(username);
     }
 
     /**

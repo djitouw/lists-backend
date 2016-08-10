@@ -3,6 +3,7 @@ package com.djitouw.lists.backend.factories;
 import com.djitouw.lists.backend.objects.movies.Movie;
 import com.djitouw.lists.backend.objects.movies.MovieDetails;
 import com.djitouw.lists.backend.provider.database.objects.MovieDB;
+import com.djitouw.lists.backend.provider.database.objects.URDDB;
 import com.djitouw.lists.backend.provider.omdb.objects.MovieOMDb;
 
 /**
@@ -14,10 +15,10 @@ import com.djitouw.lists.backend.provider.omdb.objects.MovieOMDb;
 public interface MovieFactory {
 
 	/**
-	 * @param dbMovie movie datas that come from the database
+	 * @param movieDB movie datas that come from the database
 	 * @return the movie presented to the user
 	 */
-	Movie buildMovieDB(MovieDB dbMovie);
+	Movie buildMovieDB(MovieDB movieDB, URDDB urdDB);
 	
 	/**
 	 * @param rtMovie movie datas that come from OMDb

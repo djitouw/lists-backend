@@ -27,6 +27,9 @@ public class Movie extends ListElement {
 	@XmlElement(name = "length")
 	private Double length;
 
+	@XmlElement(name = "details")
+	private MovieDetails movieDetails;
+
 	public String getTitle() {
 		return title;
 	}
@@ -65,6 +68,14 @@ public class Movie extends ListElement {
 
 	public void setLocalId(String localId) {
 		this.localId = localId;
+	}
+
+	public MovieDetails getMovieDetails() {
+		return movieDetails;
+	}
+
+	public void setMovieDetails(MovieDetails movieDetails) {
+		this.movieDetails = movieDetails;
 	}
 
 }

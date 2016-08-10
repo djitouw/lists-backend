@@ -9,10 +9,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.djitouw.lists.backend.factories.impl.MovieFactoryImpl;
+import com.djitouw.lists.backend.objects.Flag;
 import com.djitouw.lists.backend.objects.Person;
+import com.djitouw.lists.backend.objects.URD;
 import com.djitouw.lists.backend.objects.movies.Movie;
 import com.djitouw.lists.backend.objects.movies.MovieDetails;
 import com.djitouw.lists.backend.provider.database.objects.MovieDB;
+import com.djitouw.lists.backend.provider.database.objects.URDDB;
 import com.djitouw.lists.backend.provider.omdb.objects.MovieOMDb;
 import com.djitouw.lists.backend.ut.AbstractUT;
 
@@ -31,7 +34,7 @@ public class MovieFactoryImplUT extends AbstractUT {
 	 */
 	@Test
 	public void testBuildMovieNull() {
-		Movie movie = movieFactory.buildMovieDB(null);
+		Movie movie = movieFactory.buildMovieDB(null, null);
 		Assert.assertNull(movie);
 	}
 
@@ -42,7 +45,7 @@ public class MovieFactoryImplUT extends AbstractUT {
 	public void testBuildMovieLocalIdOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setLocalId("localId");
-		Movie movie = movieFactory.buildMovieDB(movieDB);
+		Movie movie = movieFactory.buildMovieDB(movieDB, null);
 		Assert.assertNotNull(movie);
 		Assert.assertEquals(movieDB.getLocalId(), movie.getLocalId());
 	}
@@ -54,7 +57,7 @@ public class MovieFactoryImplUT extends AbstractUT {
 	public void testBuildMovieTitleOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setTitle("title");
-		Movie movie = movieFactory.buildMovieDB(movieDB);
+		Movie movie = movieFactory.buildMovieDB(movieDB, null);
 		Assert.assertNotNull(movie);
 		Assert.assertEquals(movieDB.getTitle(), movie.getTitle());
 	}
@@ -66,7 +69,7 @@ public class MovieFactoryImplUT extends AbstractUT {
 	public void testBuildMovieLengthOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setLength(12d);
-		Movie movie = movieFactory.buildMovieDB(movieDB);
+		Movie movie = movieFactory.buildMovieDB(movieDB, null);
 		Assert.assertNotNull(movie);
 		Assert.assertEquals(movieDB.getLength(), movie.getLength(), 0);
 	}
@@ -78,7 +81,7 @@ public class MovieFactoryImplUT extends AbstractUT {
 	public void testBuildMovieDateIncorrectFormat() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setReleaseDate("date incorrecte");
-		Movie movie = movieFactory.buildMovieDB(movieDB);
+		Movie movie = movieFactory.buildMovieDB(movieDB, null);
 		Assert.assertNotNull(movie);
 		Assert.assertNull(movie.getReleaseDate());
 	}
@@ -90,7 +93,7 @@ public class MovieFactoryImplUT extends AbstractUT {
 	public void testBuildMovieDateOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setReleaseDate("1972-10-04");
-		Movie movie = movieFactory.buildMovieDB(movieDB);
+		Movie movie = movieFactory.buildMovieDB(movieDB, null);
 		Assert.assertNotNull(movie);
 		Date releaseDate = movie.getReleaseDate();
 		Assert.assertNotNull(releaseDate);
@@ -104,12 +107,39 @@ public class MovieFactoryImplUT extends AbstractUT {
 	public void testBuildMovieDirectorsOK() {
 		MovieDB movieDB = new MovieDB();
 		movieDB.setDirectors(Arrays.asList("director1", "director2"));
-		Movie movie = movieFactory.buildMovieDB(movieDB);
+		Movie movie = movieFactory.buildMovieDB(movieDB, null);
 		Assert.assertNotNull(movie);
 		List<Person> directors = movie.getDirectors();
 		Assert.assertNotNull(directors);
 		Assert.assertEquals("director1", directors.get(0).getName());
 		Assert.assertEquals("director2", directors.get(1).getName());
+	}
+
+	/**
+	 * No URD.
+	 */
+	@Test
+	public void testBuildMovieNoURD() {
+		MovieDB movieDB = new MovieDB();
+		Movie movie = movieFactory.buildMovieDB(movieDB, null);
+		Assert.assertNotNull(movie);
+		Assert.assertNull(movie.getUrd());
+	}
+
+	/**
+	 * With URD.
+	 */
+	@Test
+	public void testBuildMovieURD() {
+		MovieDB movieDB = new MovieDB();
+		URDDB urdDB = new URDDB();
+		urdDB.setFlags(Arrays.asList("UNKNOWN_FLAG", Flag.SEEN.name()));
+		Movie movie = movieFactory.buildMovieDB(movieDB, urdDB);
+		Assert.assertNotNull(movie);
+		URD urd = movie.getUrd();
+		Assert.assertNotNull(urd);
+		Assert.assertEquals(1, urd.getFlags().size());
+		Assert.assertEquals(Flag.SEEN, urd.getFlags().get(0));
 	}
 
 	/**
@@ -119,18 +149,6 @@ public class MovieFactoryImplUT extends AbstractUT {
 	public void testBuildMovieDetailsOMDbNull() {
 		MovieDetails movieDetails = movieFactory.buildMovieDetailsOMDb(null);
 		Assert.assertNull(movieDetails);
-	}
-
-	/**
-	 * Case title OK.
-	 */
-	@Test
-	public void testBuildMovieDetailsOMDbTitleOK() {
-		MovieOMDb movieOMDb = new MovieOMDb();
-		movieOMDb.setTitle("title");
-		MovieDetails movieDetails = movieFactory.buildMovieDetailsOMDb(movieOMDb);
-		Assert.assertNotNull(movieDetails);
-		Assert.assertEquals(movieOMDb.getTitle(), movieDetails.getTitle());
 	}
 
 	/**

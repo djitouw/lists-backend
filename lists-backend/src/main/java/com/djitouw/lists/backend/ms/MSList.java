@@ -10,12 +10,13 @@ import com.djitouw.lists.backend.objects.ListElement;
  * @param <E> type of the list element (Movie, Book...)
  * @param <D> type of the details of the list element
  */
-public interface MSList<E extends ListElement, D extends ListElement> {
+public interface MSList<E extends ListElement, D> {
 
 	/**
+	 * @param username the username
 	 * @return the list of elements stored
 	 */
-	public List<E> getList();
+	public List<E> getList(String username);
 
 
 	/**

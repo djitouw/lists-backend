@@ -16,15 +16,16 @@ import com.djitouw.lists.backend.objects.Person;
 import com.djitouw.lists.backend.objects.movies.Movie;
 import com.djitouw.lists.backend.objects.movies.MovieDetails;
 import com.djitouw.lists.backend.provider.database.objects.MovieDB;
+import com.djitouw.lists.backend.provider.database.objects.URDDB;
 import com.djitouw.lists.backend.provider.omdb.objects.MovieOMDb;
 
 @Component
-public class MovieFactoryImpl implements MovieFactory {
+public class MovieFactoryImpl extends AbstractFactory implements MovieFactory {
 
 	private static final Logger LOGGER = Logger.getLogger(MovieFactoryImpl.class);
 
 	@Override
-	public Movie buildMovieDB(MovieDB movieDB) {
+	public Movie buildMovieDB(MovieDB movieDB, URDDB urdDB) {
 		Movie movie = null;
 		if (movieDB != null) {
 			movie = new Movie();
@@ -54,6 +55,11 @@ public class MovieFactoryImpl implements MovieFactory {
 						}));
 				movie.setDirectors(directors);
 			}
+
+			// URD
+			if (urdDB != null) {
+				movie.setUrd(buildURDDB(urdDB));
+			}
 		}
 		return movie;
 	}
@@ -63,7 +69,6 @@ public class MovieFactoryImpl implements MovieFactory {
 		MovieDetails movieDetails = null;
 		if (movieOMDb != null) {
 			movieDetails = new MovieDetails();
-			movieDetails.setTitle(movieOMDb.getTitle());
 			movieDetails.setSynopsis(movieOMDb.getPlot());
 			movieDetails.setUrlPoster(movieOMDb.getUrlPoster());
 			movieDetails.setTomatoMeter(movieOMDb.getTomatoMeter());
